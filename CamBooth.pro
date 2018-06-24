@@ -25,7 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    setupdialog.cpp \
+    imagecarousel.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    setupdialog.h \
+    imagecarousel.h \
+    setting_names.h
