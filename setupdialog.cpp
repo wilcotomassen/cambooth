@@ -5,6 +5,7 @@
 #include <QSettings>
 #include <QDir>
 #include <QFileDialog>
+#include <QCameraInfo>
 #include <QDebug>
 
 SetupDialog::SetupDialog(QWidget* parent) : QDialog(parent, Qt::WindowTitleHint) {
@@ -16,11 +17,18 @@ SetupDialog::SetupDialog(QWidget* parent) : QDialog(parent, Qt::WindowTitleHint)
 	QSettings settings;
 	QGridLayout* gridLayout = new QGridLayout();
 
-	// Camera
+	// Camera combobox
 	gridLayout->addWidget(new QLabel(tr("Camera")), 0, 0);
 
 	cameraComboBox = new QComboBox();
-	//@TODO LIST CAMERAS
+	QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
+	foreach (const QCameraInfo &cameraInfo, cameras) {
+		cameraComboBox->addItem(cameraInfo.deviceName(), cameraInfo.deviceName());
+	}
+	cameraComboBox->addItem("No camera", "");
+
+	int selectedIndex = cameraComboBox->findData(settings.value(SETTINGS_CAMERA, ""));
+	cameraComboBox->setCurrentIndex(selectedIndex);
 
 	gridLayout->addWidget(cameraComboBox, 0, 1, 1, 2);
 
@@ -50,6 +58,7 @@ void SetupDialog::accept() {
 	QSettings settings;
 
 	//@TODO STORE CAMERA
+	settings.setValue(SETTINGS_CAMERA, cameraComboBox->currentData().toString());
 	settings.setValue(SETTINGS_IMAGE_PATH, pathLabel->text());
 
 
