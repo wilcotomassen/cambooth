@@ -9,6 +9,9 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
+	// Open dialog on startup
+	//openSetupDialog();
+
 	imageCarousel = new ImageCarousel(this);
 	setCentralWidget(imageCarousel);
 
@@ -18,8 +21,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	toggleFullscreenShortcut->setContext(Qt::ApplicationShortcut);
 	connect(toggleFullscreenShortcut, SIGNAL(activated()), this, SLOT(toggleFullscreen()));
 
-	// Open dialog on startup
-	openSetupDialog();
+
 
 }
 
@@ -36,10 +38,6 @@ void MainWindow::toggleFullscreen() {
 }
 
 void MainWindow::openSetupDialog() {
-
 	SetupDialog d(this);
-	if (d.exec()) {
-		qDebug() << "OK";
-	}
-
+	d.exec();
 }

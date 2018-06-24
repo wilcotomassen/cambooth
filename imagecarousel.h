@@ -9,9 +9,17 @@ class ImageCarousel : public QWidget {
 public:
 	explicit ImageCarousel(QWidget *parent = nullptr);
 
-signals:
+private slots:
+	void handleContentChange(const QString& changedPath);
+	void swapImages();
 
-public slots:
+private:
+	void paintEvent(QPaintEvent*);
+	void reloadImages();
+
+	bool			filesChanged;			//!< Flag that indicates that directory contents have changed
+	QList<QImage>	images;					//!< All available images
+	int				currentImageIndex;		//!< Current drawn image from images
 
 };
 
