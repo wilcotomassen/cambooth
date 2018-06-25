@@ -17,7 +17,12 @@ private slots:
 	void openSetupDialog();
 
 private:
-	ImageCarousel* imageCarousel;
+	void setupCallToAction();
+	void resizeEvent(QResizeEvent *);
+
+	QWidget*		callToActionWidget;
+	ImageCarousel*	imageCarousel;
+
 
 };
 

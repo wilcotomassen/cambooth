@@ -27,10 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     setupdialog.cpp \
-    imagecarousel.cpp
+    imagecarousel.cpp \
+    cameradialog.cpp \
+    picturereviewdialog.cpp
 
 HEADERS += \
         mainwindow.h \
     setupdialog.h \
     imagecarousel.h \
-    setting_names.h
+    setting_names.h \
+    cameradialog.h \
+    picturereviewdialog.h
