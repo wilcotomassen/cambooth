@@ -8,7 +8,7 @@
 #include <QCameraInfo>
 #include <QDebug>
 
-SetupDialog::SetupDialog(QWidget* parent) : QDialog(parent, Qt::WindowTitleHint) {
+SetupDialog::SetupDialog(QWidget* parent) : QDialog(parent) {
 
 	setMinimumSize(320, 160);
 	setWindowTitle(tr("Settings"));
@@ -23,8 +23,9 @@ SetupDialog::SetupDialog(QWidget* parent) : QDialog(parent, Qt::WindowTitleHint)
 	cameraComboBox = new QComboBox();
 	QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
 	foreach (const QCameraInfo &cameraInfo, cameras) {
-		cameraComboBox->addItem(cameraInfo.deviceName(), cameraInfo.deviceName());
+		cameraComboBox->addItem(cameraInfo.description(), cameraInfo.deviceName());
 	}
+
 	cameraComboBox->addItem("No camera", "");
 
 	int selectedIndex = cameraComboBox->findData(settings.value(SETTINGS_CAMERA, ""));

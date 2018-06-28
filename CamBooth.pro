@@ -4,9 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui multimedia multimediawidgets
 
 TARGET = CamBooth
 TEMPLATE = app
@@ -28,13 +26,15 @@ SOURCES += \
         mainwindow.cpp \
     setupdialog.cpp \
     imagecarousel.cpp \
-    cameradialog.cpp \
-    picturereviewdialog.cpp
+    camera.cpp \
+    cameraview.cpp \
+    reviewView.cpp
 
 HEADERS += \
         mainwindow.h \
     setupdialog.h \
     imagecarousel.h \
     setting_names.h \
-    cameradialog.h \
-    picturereviewdialog.h
+    camera.h \
+    cameraview.h \
+    reviewView.h
