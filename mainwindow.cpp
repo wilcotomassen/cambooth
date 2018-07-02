@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	setMinimumSize(1024, 768);
 
 	// Open dialog on startup
-	//openSetupDialog();
+	openSetupDialog();
 
 	// Setup views
 	imageCarousel = new ImageCarousel(this);
@@ -51,6 +51,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	// Setup call to action
 	setupCallToAction();
 	callToActionWidget->hide();
+
+	// Set fullscreen shortcut
+	QShortcut* setupShortcut = new QShortcut(QKeySequence(tr("Ctrl+,")), this);
+	setupShortcut->setContext(Qt::ApplicationShortcut);
+	connect(setupShortcut, SIGNAL(activated()), this, SLOT(openSetupDialog()));
 
 	// Set fullscreen shortcut
 	QShortcut* toggleFullscreenShortcut = new QShortcut(QKeySequence(tr("Ctrl+F")), this);
@@ -110,7 +115,7 @@ void MainWindow::acceptPhoto() {
 }
 
 void MainWindow::askForAnotherPicture() {
-	if (QMessageBox::question(this, "Foo", "Bar", QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes) {
+	if (QMessageBox::question(this, tr("Take another photo?"), tr("Would you like to take another picture?"), tr("Yes"), tr("No")) == 0) {
 		gotoPictureMode();
 	} else {
 		gotoIdleMode();
@@ -130,7 +135,7 @@ void MainWindow::setupCallToAction() {
 	uiFont.setPixelSize(16);
 
 	// Call to action text
-	QString content = "Hello<br />Foo bar baz";
+	QString content = "This is the camera booth<br />Take your picture here";
 
 	QLabel* callToActionText = new QLabel(this);
 	callToActionText->setTextFormat(Qt::RichText);
@@ -139,7 +144,7 @@ void MainWindow::setupCallToAction() {
 	callToActionText->setText(content);
 
 	// Button
-	QPushButton* takePictureBtn = new QPushButton(tr("Take picture"), this);
+	QPushButton* takePictureBtn = new QPushButton(tr("Take photo"), this);
 	takePictureBtn->setFont(uiFont);
 	takePictureBtn->setStyleSheet("padding: 20px;");
 	connect(takePictureBtn, SIGNAL(clicked()), this, SLOT(gotoPictureMode()));
@@ -179,6 +184,7 @@ void MainWindow::toggleFullscreen() {
 
 void MainWindow::openSetupDialog() {
 	SetupDialog d(this);
+	d.exec();
 }
 
 void MainWindow::resizeEvent(QResizeEvent*) {

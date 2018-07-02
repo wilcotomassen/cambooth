@@ -21,15 +21,15 @@ ReviewView::ReviewView(QWidget *parent) : QWidget(parent) {
 	photoLayout->addWidget(imageContainer);
 
 	// Question
-	QLabel* questionLabel = new QLabel(tr("Foto bewaren?"), this);
+	QLabel* questionLabel = new QLabel(tr("Would you like to keep this photo?"), this);
 	QHBoxLayout* questionLayout = new QHBoxLayout();
 	questionLayout->addWidget(questionLabel);
 
 	// Buttons
-	QPushButton* acceptButton = new QPushButton(tr("Ja"), this);
+	QPushButton* acceptButton = new QPushButton(tr("Yes"), this);
 	connect(acceptButton, SIGNAL(clicked()), this, SIGNAL(imageAccepted()));
 
-	QPushButton* rejectButton = new QPushButton(tr("Nee"), this);
+	QPushButton* rejectButton = new QPushButton(tr("No"), this);
 	connect(rejectButton, SIGNAL(clicked()), this, SIGNAL(imageRejected()));
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout();
