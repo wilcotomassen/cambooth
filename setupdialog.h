@@ -17,11 +17,12 @@ public slots:
 
 private slots:
 	void changeImagePath();
+	void changeCssPath();
 
 private:
 	QComboBox*		cameraComboBox;
 	QLabel*			pathLabel;
-	QPushButton*	pathSelectBtn;
+	QLabel*			qssLabel;
 
 };
 

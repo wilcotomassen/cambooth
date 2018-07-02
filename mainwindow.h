@@ -26,6 +26,7 @@ private slots:
 	void askForAnotherPicture();
 
 private:
+	void applyStyleSheet();
 	void showView(QWidget* widget);
 	void setupCallToAction();
 	void resizeEvent(QResizeEvent *);

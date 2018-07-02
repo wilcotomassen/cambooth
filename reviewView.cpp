@@ -22,8 +22,12 @@ ReviewView::ReviewView(QWidget *parent) : QWidget(parent) {
 
 	// Question
 	QLabel* questionLabel = new QLabel(tr("Would you like to keep this photo?"), this);
+	questionLabel->setAlignment(Qt::AlignCenter);
+	questionLabel->setObjectName("reviewQuestion");
 	QHBoxLayout* questionLayout = new QHBoxLayout();
+	questionLayout->addStretch();
 	questionLayout->addWidget(questionLabel);
+	questionLayout->addStretch();
 
 	// Buttons
 	QPushButton* acceptButton = new QPushButton(tr("Yes"), this);

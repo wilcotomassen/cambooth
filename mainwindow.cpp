@@ -24,8 +24,10 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	setMinimumSize(1024, 768);
 
+	applyStyleSheet();
+
 	// Open dialog on startup
-	openSetupDialog();
+	//openSetupDialog();
 
 	// Setup views
 	imageCarousel = new ImageCarousel(this);
@@ -115,7 +117,14 @@ void MainWindow::acceptPhoto() {
 }
 
 void MainWindow::askForAnotherPicture() {
-	if (QMessageBox::question(this, tr("Take another photo?"), tr("Would you like to take another picture?"), tr("Yes"), tr("No")) == 0) {
+
+	QMessageBox msgBox;
+	msgBox.setText(tr("Would you like to take another picture?"));
+	msgBox.addButton(tr("Yes"), QMessageBox::YesRole);
+	msgBox.addButton(tr("No"), QMessageBox::NoRole);
+	msgBox.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+
+	if (msgBox.exec() == 0) {
 		gotoPictureMode();
 	} else {
 		gotoIdleMode();
@@ -131,22 +140,16 @@ void MainWindow::showView(QWidget* widget) {
 
 void MainWindow::setupCallToAction() {
 
-	QFont uiFont;
-	uiFont.setPixelSize(16);
-
 	// Call to action text
 	QString content = "This is the camera booth<br />Take your picture here";
 
 	QLabel* callToActionText = new QLabel(this);
 	callToActionText->setTextFormat(Qt::RichText);
-	callToActionText->setFont(uiFont);
 	callToActionText->setAlignment(Qt::AlignCenter);
 	callToActionText->setText(content);
 
 	// Button
 	QPushButton* takePictureBtn = new QPushButton(tr("Take photo"), this);
-	takePictureBtn->setFont(uiFont);
-	takePictureBtn->setStyleSheet("padding: 20px;");
 	connect(takePictureBtn, SIGNAL(clicked()), this, SLOT(gotoPictureMode()));
 
 	QHBoxLayout* btnLayout = new QHBoxLayout();
@@ -161,6 +164,7 @@ void MainWindow::setupCallToAction() {
 	callToActionLayout->addLayout(btnLayout);
 
 	callToActionWidget = new QWidget(this);
+	callToActionWidget->setObjectName("callToAction");
 	callToActionWidget->setMinimumSize(640, 380);
 	callToActionWidget->setLayout(callToActionLayout);
 	callToActionWidget->move((width() - callToActionWidget->width()) / 2,
@@ -187,8 +191,21 @@ void MainWindow::openSetupDialog() {
 	d.exec();
 }
 
+void MainWindow::applyStyleSheet() {
+
+	if (QSettings().value(SETTINGS_QSS_PATH, 0).isNull()) {
+		return;
+	}
+
+	QFile File(QSettings().value(SETTINGS_QSS_PATH).toString());
+	File.open(QFile::ReadOnly);
+	QString StyleSheet = QLatin1String(File.readAll());
+	qApp->setStyleSheet(StyleSheet);
+}
+
 void MainWindow::resizeEvent(QResizeEvent*) {
 	callToActionWidget->move((width() - callToActionWidget->width()) / 2,
 							 (height() - callToActionWidget->height()) / 2);
 }
+
 
