@@ -1,4 +1,8 @@
 {
+	"Intro text": "Take your picture here<br/> This supports limited html formatting",
+	"Take photo": "Take your picture",
+	"Would you like to take another picture?": "Would you like to take another picture?",
+	"Would you like to keep this photo?": "Do you want to keep this picture?",
 	"Yes": "Yes",
 	"No": "No"
 }
