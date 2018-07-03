@@ -18,11 +18,13 @@ public slots:
 private slots:
 	void changeImagePath();
 	void changeCssPath();
+	void changeDictionaryPath();
 
 private:
 	QComboBox*		cameraComboBox;
 	QLabel*			pathLabel;
 	QLabel*			qssLabel;
+	QLabel*			dictionaryLabel;
 
 };
 
