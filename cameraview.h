@@ -19,12 +19,16 @@ public slots:
 
 private slots:
 	void updateCountdown();
+	void updateFlash();
 
 private:
 	void paintEvent(QPaintEvent*event);
 
 	QTimer*		countdownTimer;
 	int			countdownState;
+
+	QTimer*		flashTimer;
+	float		flashState;
 
 };
 
