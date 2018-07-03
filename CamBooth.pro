@@ -28,7 +28,8 @@ SOURCES += \
     imagecarousel.cpp \
     camera.cpp \
     cameraview.cpp \
-    reviewView.cpp
+    reviewView.cpp \
+    dictionary.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -37,4 +38,5 @@ HEADERS += \
     setting_names.h \
     camera.h \
     cameraview.h \
-    reviewView.h
+    reviewView.h \
+    dictionary.h

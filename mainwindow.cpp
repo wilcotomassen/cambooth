@@ -6,6 +6,7 @@
 #include "imagecarousel.h"
 #include "cameraview.h"
 #include "reviewView.h"
+#include "dictionary.h"
 
 #include <QStackedWidget>
 #include <QShortcut>
@@ -24,11 +25,19 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	setMinimumSize(1024, 768);
 
-	// Apply the stylesheet
-	applyStyleSheet();
+	// Load dictionary
+	QString error = "";
+	if (!Dictionary::loadFromFile(QSettings().value(SETTINGS_DICTIONARY_PATH, "").toString(), &error)) {
+		if (!error.isEmpty()) {
+			QMessageBox::critical(this, "Failed to load dictionary", QString("Failed to load dictionary: %1").arg(error));
+		}
+	}
 
 	// Open dialog on startup
-	//openSetupDialog();
+	openSetupDialog();
+
+	// Apply the stylesheet
+	applyStyleSheet();
 
 	// Setup views
 	imageCarousel = new ImageCarousel(this);
@@ -56,17 +65,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	callToActionWidget->hide();
 
 	// Set fullscreen shortcut
-	QShortcut* setupShortcut = new QShortcut(QKeySequence(tr("Ctrl+,")), this);
-	setupShortcut->setContext(Qt::ApplicationShortcut);
-	connect(setupShortcut, SIGNAL(activated()), this, SLOT(openSetupDialog()));
-
-	// Set fullscreen shortcut
-	QShortcut* toggleFullscreenShortcut = new QShortcut(QKeySequence(tr("Ctrl+F")), this);
+	QShortcut* toggleFullscreenShortcut = new QShortcut(QKeySequence(TR("Ctrl+F")), this);
 	toggleFullscreenShortcut->setContext(Qt::ApplicationShortcut);
 	connect(toggleFullscreenShortcut, SIGNAL(activated()), this, SLOT(toggleFullscreen()));
 
 	// Set quit shortcut
-	QShortcut* quitShortcut = new QShortcut(QKeySequence(tr("Ctrl+Shift+Q")), this);
+	QShortcut* quitShortcut = new QShortcut(QKeySequence(TR("Ctrl+Shift+Q")), this);
 	quitShortcut->setContext(Qt::ApplicationShortcut);
 	connect(quitShortcut, SIGNAL(activated()), QApplication::instance(), SLOT(quit()));
 
@@ -120,9 +124,9 @@ void MainWindow::acceptPhoto() {
 void MainWindow::askForAnotherPicture() {
 
 	QMessageBox msgBox;
-	msgBox.setText(tr("Would you like to take another picture?"));
-	msgBox.addButton(tr("Yes"), QMessageBox::YesRole);
-	msgBox.addButton(tr("No"), QMessageBox::NoRole);
+	msgBox.setText(TR("Would you like to take another picture?"));
+	msgBox.addButton(TR("Yes"), QMessageBox::YesRole);
+	msgBox.addButton(TR("No"), QMessageBox::NoRole);
 	msgBox.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
 	if (msgBox.exec() == 0) {
@@ -142,7 +146,7 @@ void MainWindow::showView(QWidget* widget) {
 void MainWindow::setupCallToAction() {
 
 	// Call to action text
-	QString content = "This is the camera booth<br />Take your picture here";
+	QString content = TR("Intro text");
 
 	QLabel* callToActionText = new QLabel(this);
 	callToActionText->setTextFormat(Qt::RichText);
@@ -150,7 +154,7 @@ void MainWindow::setupCallToAction() {
 	callToActionText->setText(content);
 
 	// Button
-	QPushButton* takePictureBtn = new QPushButton(tr("Take photo"), this);
+	QPushButton* takePictureBtn = new QPushButton(TR("Take photo"), this);
 	connect(takePictureBtn, SIGNAL(clicked()), this, SLOT(gotoPictureMode()));
 
 	QHBoxLayout* btnLayout = new QHBoxLayout();

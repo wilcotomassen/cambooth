@@ -1,5 +1,6 @@
 #include "reviewView.h"
 
+#include "dictionary.h"
 #include <QImage>
 #include <QLabel>
 #include <QPushButton>
@@ -21,7 +22,7 @@ ReviewView::ReviewView(QWidget *parent) : QWidget(parent) {
 	photoLayout->addWidget(imageContainer);
 
 	// Question
-	QLabel* questionLabel = new QLabel(tr("Would you like to keep this photo?"), this);
+	QLabel* questionLabel = new QLabel(TR("Would you like to keep this photo?"), this);
 	questionLabel->setAlignment(Qt::AlignCenter);
 	questionLabel->setObjectName("reviewQuestion");
 	QHBoxLayout* questionLayout = new QHBoxLayout();
@@ -30,10 +31,10 @@ ReviewView::ReviewView(QWidget *parent) : QWidget(parent) {
 	questionLayout->addStretch();
 
 	// Buttons
-	QPushButton* acceptButton = new QPushButton(tr("Yes"), this);
+	QPushButton* acceptButton = new QPushButton(TR("Yes"), this);
 	connect(acceptButton, SIGNAL(clicked()), this, SIGNAL(imageAccepted()));
 
-	QPushButton* rejectButton = new QPushButton(tr("No"), this);
+	QPushButton* rejectButton = new QPushButton(TR("No"), this);
 	connect(rejectButton, SIGNAL(clicked()), this, SIGNAL(imageRejected()));
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout();
