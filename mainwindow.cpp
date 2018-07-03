@@ -24,6 +24,7 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	setMinimumSize(1024, 768);
+	setWindowTitle(QString("CamBooth %1").arg(VERSION_NUMBER));
 
 	// Load dictionary
 	QString error = "";
