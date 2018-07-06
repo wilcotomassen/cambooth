@@ -40,6 +40,7 @@ void Camera::captureImage() {
 
 void Camera::handleCapturedImage(int, const QString& filename) {
 	lastCapturedFilename = filename;
+	qDebug() << "IMGCAP";
 	emit imageCaptured(filename);
 }
 

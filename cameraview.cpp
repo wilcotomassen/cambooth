@@ -22,7 +22,7 @@ CameraView::CameraView(QWidget* parent) : QCameraViewfinder(parent) {
 	connect(countdownTimer, SIGNAL(timeout()), this, SLOT(updateCountdown()));
 
 	flashTimer = new QTimer(this);
-	flashTimer->setInterval(10);
+	flashTimer->setInterval(20);
 	connect(flashTimer, SIGNAL(timeout()), this, SLOT(updateFlash()));
 
 }
@@ -49,7 +49,7 @@ void CameraView::updateCountdown() {
 
 		// Start flash
 		flashState = 1;
-		countdownTimer->start();
+		flashTimer->start();
 
 	}
 

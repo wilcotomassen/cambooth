@@ -214,4 +214,3 @@ void MainWindow::resizeEvent(QResizeEvent*) {
 							 (height() - callToActionWidget->height()) / 2);
 }
 
-
