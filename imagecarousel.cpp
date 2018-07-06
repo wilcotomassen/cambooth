@@ -58,7 +58,9 @@ void ImageCarousel::swapImages() {
 		reloadImages();
 
 		// Start current image at random index
-		currentImageIndex = rand() % images.size();
+		if (images.size() > 0) {
+			currentImageIndex = images.size() -1;
+		}
 
 	} else {
 
@@ -66,7 +68,10 @@ void ImageCarousel::swapImages() {
 		currentImageIndex = (currentImageIndex == images.size() - 1)
 			? 0
 			: (currentImageIndex + 1);
+
 	}
+
+	update();
 
 }
 
@@ -80,14 +85,11 @@ void ImageCarousel::paintEvent(QPaintEvent*) {
 
 	// Draw current image
 	if (images.size() > currentImageIndex) {
-
 		QImage drawImage = images.at(currentImageIndex).scaled(size(), Qt::KeepAspectRatio);
 		int x = (width() - drawImage.width()) / 2;
 		int y = (height() - drawImage.height()) / 2;
 		painter.drawImage(x, y, drawImage);
-
 	}
 
-	update();
 }
 
