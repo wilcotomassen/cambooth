@@ -42,5 +42,5 @@ HEADERS += \
     dictionary.h
 
 # Set version number
-VERSION_NR = "1.0.0"
+VERSION_NR = "1.0.1"
 DEFINES += "VERSION_NUMBER=\\\"$$VERSION_NR\\\""
