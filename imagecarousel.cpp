@@ -24,7 +24,7 @@ ImageCarousel::ImageCarousel(QWidget *parent) : QWidget(parent) {
 	// Swap timer
 	QTimer* imageSwapIimer = new QTimer(this);
 	connect(imageSwapIimer, SIGNAL(timeout()), this, SLOT(swapImages()));
-	imageSwapIimer->start(1000);
+	imageSwapIimer->start(3000);
 
 }
 
